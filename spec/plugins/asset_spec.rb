@@ -5,6 +5,7 @@ describe Jekyll::LayerVault::Asset do
   let (:revision) { 2 }
   let (:asset) { "Group/Asset.png" }
   let (:jekyll_config) { Struct.new(:config) }
+  let (:template) { Liquid::Template.parse(source) }
   let (:options) do 
     {
       registers: {
@@ -16,7 +17,6 @@ describe Jekyll::LayerVault::Asset do
   context "without revision number" do
     let (:source) { "{% lv_asset \"#{file}\" \"#{asset}\" %}" }
     let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/assets/#{asset}?raw=1" }
-    let (:template) { Liquid::Template.parse(source) }
 
     it "parses successfully" do
       expect {
@@ -32,7 +32,6 @@ describe Jekyll::LayerVault::Asset do
   context "with revision number" do
     let (:source) { "{% lv_asset \"#{file}\" \"#{revision}\" \"#{asset}\" %}" }
     let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/#{revision}/assets/#{asset}?raw=1" }
-    let (:template) { Liquid::Template.parse(source) }
 
     it "parses successfully" do
       expect {
@@ -48,7 +47,6 @@ describe Jekyll::LayerVault::Asset do
   context "with dash revision" do
     let (:source) { "{% lv_asset \"#{file}\" \"-\" \"#{asset}\" %}" }
     let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/assets/#{asset}?raw=1" }
-    let (:template) { Liquid::Template.parse(source) }
 
     it "parses successfully" do
       expect {
