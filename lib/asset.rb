@@ -30,8 +30,9 @@ module Jekyll
       end
 
       def parse_parameters
-        matches = @text.scan PARAM_REGEX
-        matches.insert 1, [] if matches.length == 2
+        @text.scan(PARAM_REGEX).
+          tap { |m| m.insert 1, [] if m.length == 2 }.
+          tap { |m| m[1] = [] if m[1][0] == '-' }
       end
     end
   end

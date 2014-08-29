@@ -28,4 +28,36 @@ describe Jekyll::LayerVault::Asset do
       expect(template.render(nil, options)).to eq target
     end
   end
+
+  context "with revision number" do
+    let (:source) { "{% lv_asset \"#{file}\" \"#{revision}\" \"#{asset}\" %}" }
+    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/#{revision}/assets/#{asset}?raw=1" }
+    let (:template) { Liquid::Template.parse(source) }
+
+    it "parses successfully" do
+      expect {
+        template.render nil, options
+      }.to_not raise_error
+    end
+
+    it "produces a valid URL" do
+      expect(template.render(nil, options)).to eq target
+    end
+  end
+
+  context "with dash revision" do
+    let (:source) { "{% lv_asset \"#{file}\" \"-\" \"#{asset}\" %}" }
+    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/assets/#{asset}?raw=1" }
+    let (:template) { Liquid::Template.parse(source) }
+
+    it "parses successfully" do
+      expect {
+        template.render nil, options
+      }.to_not raise_error
+    end
+
+    it "produces a valid URL" do
+      expect(template.render(nil, options)).to eq target
+    end
+  end
 end
