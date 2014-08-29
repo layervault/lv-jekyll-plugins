@@ -1,13 +1,9 @@
 require 'liquid'
-require 'lib/common'
-
-# {% lv_preview "File.psd" %}
-# {% lv_preview "File.psd" "1" %}
-# {% lv_preview "File.psd" "1" "2" %}
+require 'plugins/common'
 
 module Jekyll
   module LayerVault
-    class Preview < Liquid::Tag
+    class Asset < Liquid::Tag
       include Common
 
       URL_BASE = "https://layervault.com".freeze
@@ -21,17 +17,11 @@ module Jekyll
         return @text unless valid_parameters?
 
         config = context.registers[:site].config
-        file, revision, page = parse_parameters
+        file, revision, asset = parse_parameters
 
         url = File.join(URL_BASE, config['organization'], config['project'], file)
         url = File.join(url, revision) unless revision.nil?
-
-        if page.nil?
-          url = File.join(url, 'preview')
-        else
-          url = File.join(url, 'previews', page)
-        end
-
+        url = File.join(url, 'assets', asset)
         url += "?raw=1"
       end
 
@@ -39,11 +29,12 @@ module Jekyll
 
       def parse_parameters
         @text.scan(PARAM_REGEX).
-          flatten.
-          tap { |m| m[1] = nil if m[1] == '-' }
+          tap { |m| m.insert 1, [] if m.length == 2 }.
+          tap { |m| m[1] = [] if m[1][0] == '-' }.
+          map(&:first)
       end
     end
   end
 end
 
-Liquid::Template.register_tag('lv_preview', Jekyll::LayerVault::Preview)
+Liquid::Template.register_tag('lv_asset', Jekyll::LayerVault::Asset)
