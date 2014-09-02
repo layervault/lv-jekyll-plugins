@@ -1,6 +1,9 @@
 require 'liquid'
 require 'plugins/common'
 
+# {% lv_download "File.psd" %}
+# {% lv_download "File.psd" "2" %}
+
 module Jekyll
   module LayerVault
     class Download < Liquid::Tag
