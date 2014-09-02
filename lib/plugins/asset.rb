@@ -20,7 +20,7 @@ module Jekyll
         file, revision, asset = parse_parameters
 
         url = File.join(URL_BASE, config['organization'], config['project'], file)
-        url = File.join(url, revision) unless revision.nil?
+        url = File.join(url, 'revisions', revision) unless revision.nil?
         url = File.join(url, 'assets', asset)
         url += "?raw=1"
       end

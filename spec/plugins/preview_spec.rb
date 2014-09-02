@@ -16,7 +16,7 @@ describe Jekyll::LayerVault::Preview do
 
   context "without revision number" do
     let (:source) { "{% lv_preview \"#{file}\" %}" }
-    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/preview?raw=1" }
+    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/previews/1?raw=1" }
 
     it "parses successfully" do
       expect {
@@ -31,7 +31,7 @@ describe Jekyll::LayerVault::Preview do
 
   context "with revision number" do
     let (:source) { "{% lv_preview \"#{file}\" \"#{revision}\" %}" }
-    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/#{revision}/preview?raw=1" }
+    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/revisions/#{revision}/previews/1?raw=1" }
 
     it "parses successfully" do
       expect {
@@ -46,7 +46,7 @@ describe Jekyll::LayerVault::Preview do
 
   context "with dash revision" do
     let (:source) { "{% lv_preview \"#{file}\" \"-\" %}" }
-    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/preview?raw=1" }
+    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/previews/1?raw=1" }
 
     it "parses successfully" do
       expect {
@@ -78,7 +78,7 @@ describe Jekyll::LayerVault::Preview do
 
     context "with revision number" do
       let (:source) { "{% lv_preview \"#{file}\" \"#{revision}\" \"#{preview}\" %}" }
-      let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/#{revision}/previews/#{preview}?raw=1" }
+      let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/revisions/#{revision}/previews/#{preview}?raw=1" }
 
       it "parses successfully" do
         expect {

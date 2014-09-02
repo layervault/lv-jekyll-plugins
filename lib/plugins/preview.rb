@@ -24,13 +24,8 @@ module Jekyll
         file, revision, page = parse_parameters
 
         url = File.join(URL_BASE, config['organization'], config['project'], file)
-        url = File.join(url, revision) unless revision.nil?
-
-        if page.nil?
-          url = File.join(url, 'preview')
-        else
-          url = File.join(url, 'previews', page)
-        end
+        url = File.join(url, 'revisions', revision) unless revision.nil?
+        url = File.join(url, 'previews', page)
 
         url += "?raw=1"
       end
@@ -40,6 +35,8 @@ module Jekyll
       def parse_parameters
         @text.scan(PARAM_REGEX).
           flatten.
+          tap { |m| m.push nil if m.length == 1 }.
+          tap { |m| m.push '1' if m.length == 2 }.
           tap { |m| m[1] = nil if m[1] == '-' }
       end
     end

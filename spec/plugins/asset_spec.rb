@@ -31,7 +31,7 @@ describe Jekyll::LayerVault::Asset do
 
   context "with revision number" do
     let (:source) { "{% lv_asset \"#{file}\" \"#{revision}\" \"#{asset}\" %}" }
-    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/#{revision}/assets/#{asset}?raw=1" }
+    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/revisions/#{revision}/assets/#{asset}?raw=1" }
 
     it "parses successfully" do
       expect {
