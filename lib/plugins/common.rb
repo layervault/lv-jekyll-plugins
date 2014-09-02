@@ -1,6 +1,7 @@
 module Jekyll
   module LayerVault
     module Common
+      URL_BASE = "https://layervault.com".freeze
       PARAM_REGEX = /"(.+?)"/
 
       private

@@ -6,8 +6,6 @@ module Jekyll
     class Asset < Liquid::Tag
       include Common
 
-      URL_BASE = "https://layervault.com".freeze
-
       def initialize(tag_name, text, tokens)
         super
         @text = text
