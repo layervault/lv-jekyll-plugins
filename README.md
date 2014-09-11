@@ -38,3 +38,22 @@ All plugins return a URL. You must build the HTML element yourself.
 {% lv_preview "File.psd" "3" "2" %}
 # => https://layervault.com/organization/project/File.psd/revisions/3/previews/2?raw=1
 ```
+
+### Project
+
+``` liquid
+{% lv_project %}
+# => https://layervault.com/organization/project
+```
+
+### Download
+
+``` liquid
+# Latest revision of File.psd
+{% lv_download "File.psd" %}
+# => https://layervault.com/organization/project/File.psd?raw=1
+
+# 2nd revision of File.psd
+{% lv_download "File.psd" "2" %}
+# => https://layervault.com/organization/project/File.psd/revisions/2?raw=1
+```
