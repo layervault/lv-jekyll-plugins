@@ -60,9 +60,19 @@ All plugins return a URL. You must build the HTML element yourself.
 
 ## Self-Hosting
 
-If you wish to use this plugin on your own self-hosted Jekyll site, the `_config.yml` must contain entries for your organization and a project:
+First, add the gem to your Gemfile and `bundle install`.
+
+``` ruby
+gem 'lv-jekyll-plugins'
+```
+
+Next, the Jekyll `_config.yml` must contain entries for your organization and a project. You should also add the plugin to the list of gems.
 
 ``` yaml
 organization: your-organization
 project: your-project
+gems:
+  - lv-jekyll-plugins
 ```
+
+And that should do it! When you build your project, all LayerVault tags should be correctly generated. If you run into any issues, please open a GitHub issue with as many details as you can provide.
