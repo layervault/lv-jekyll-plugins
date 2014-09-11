@@ -57,3 +57,12 @@ All plugins return a URL. You must build the HTML element yourself.
 {% lv_download "File.psd" "2" %}
 # => https://layervault.com/organization/project/File.psd/revisions/2?raw=1
 ```
+
+## Self-Hosting
+
+If you wish to use this plugin on your own self-hosted Jekyll site, the `_config.yml` must contain entries for your organization and a project:
+
+``` yaml
+organization: your-organization
+project: your-project
+```
