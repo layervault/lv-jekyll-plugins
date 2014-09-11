@@ -13,48 +13,50 @@ describe Jekyll::LayerVault::Download do
     }
   end
 
-  context "without revision number" do
-    let (:source) { "{% lv_download \"#{file}\" %}" }
-    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}?raw=1" }
+  ["\"", "'"].each do |q|
+    context "without revision number" do
+      let (:source) { "{% lv_download #{q}#{file}#{q} %}" }
+      let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}?raw=1" }
 
-    it "parses successfully" do
-      expect {
-        template.render nil, options
-      }.to_not raise_error
+      it "parses successfully" do
+        expect {
+          template.render nil, options
+        }.to_not raise_error
+      end
+
+      it "produces a valid URL" do
+        expect(template.render(nil, options)).to eq target
+      end
     end
 
-    it "produces a valid URL" do
-      expect(template.render(nil, options)).to eq target
-    end
-  end
+    context "with revision number" do
+      let (:source) { "{% lv_download #{q}#{file}#{q} #{q}#{revision}#{q} %}" }
+      let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/revisions/#{revision}?raw=1" }
 
-  context "with revision number" do
-    let (:source) { "{% lv_download \"#{file}\" \"#{revision}\" %}" }
-    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}/revisions/#{revision}?raw=1" }
+      it "parses successfully" do
+        expect {
+          template.render nil, options
+        }.to_not raise_error
+      end
 
-    it "parses successfully" do
-      expect {
-        template.render nil, options
-      }.to_not raise_error
-    end
-
-    it "produces a valid URL" do
-      expect(template.render(nil, options)).to eq target
-    end
-  end
-
-  context "with dash revision" do
-    let (:source) { "{% lv_download \"#{file}\" \"-\" %}" }
-    let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}?raw=1" }
-
-    it "parses successfully" do
-      expect {
-        template.render nil, options
-      }.to_not raise_error
+      it "produces a valid URL" do
+        expect(template.render(nil, options)).to eq target
+      end
     end
 
-    it "produces a valid URL" do
-      expect(template.render(nil, options)).to eq target
+    context "with dash revision" do
+      let (:source) { "{% lv_download #{q}#{file}#{q} #{q}-#{q} %}" }
+      let (:target) { "https://layervault.com/#{organization}/#{project}/#{file}?raw=1" }
+
+      it "parses successfully" do
+        expect {
+          template.render nil, options
+        }.to_not raise_error
+      end
+
+      it "produces a valid URL" do
+        expect(template.render(nil, options)).to eq target
+      end
     end
   end
 end
