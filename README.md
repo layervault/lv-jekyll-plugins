@@ -4,21 +4,14 @@ Plugins that add extra LayerVault-specfic functionality to our public pages.
 
 ## Available Plugins
 
-### Previews
+### Assets
 
-<table>
-  <thead>
-    <td>Jekyll Tag</td>
-    <td>Output</td>
-  </thead>
-  <tr>
-    <td>`{% lv_asset "File.psd" "Group/Asset.png" %}`</td>
-    <td>`https://layervault.com/organization/project/File.psd/assets/Group/Asset.png`</td>
-  </tr>
-  <tr>
-    <td>`{% lv_asset "File.psd" "12" "Group/Asset.png" %}`</td>
-    <td>`https://layervault.com/organization/project/File.psd/revisions/12/assets/Group/Asset.png`</td>
-  </tr>
-    <td>
-  </tr>
-</table>
+``` liquid
+# Asset Group/Asset.png in latest revision of File.psd
+{% lv_asset "File.psd" "Group/Asset.png" %}
+# => https://layervault.com/organization/project/File.psd/assets/Group/Asset.png`
+
+# Asset Group/Asset.png in revision 12 of File.psd
+{% lv_asset "File.psd" "12" "Group/Asset.png" %}
+# => https://layervault.com/organization/project/File.psd/revisions/12/assets/Group/Asset.png
+```
