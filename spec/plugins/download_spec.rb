@@ -58,5 +58,20 @@ describe Jekyll::LayerVault::Download do
         expect(template.render(nil, options)).to eq target
       end
     end
+
+    context "with example tag" do
+      let (:source) { "{% lv_download_example #{q}#{file}#{q} %}" }
+      let (:target) { "{% lv_download #{q}#{file}#{q} %}" }
+
+      it "parses successfully" do
+        expect {
+          template.render nil, options
+        }.to_not raise_error
+      end
+
+      it "produces valid content" do
+        expect(template.render(nil, options)).to eq target
+      end
+    end
   end
 end

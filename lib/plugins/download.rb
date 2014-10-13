@@ -11,7 +11,7 @@ module Jekyll
 
       def initialize(tag_name, text, tokens)
         super
-        @text = text
+        @text = text.strip
       end
 
       def render(context)
@@ -34,7 +34,14 @@ module Jekyll
           tap { |m| m[1] = nil if m[1] == '-' }
       end
     end
+
+    class DownloadExample < Download
+      def render(context)
+        "{% lv_download #{@text.gsub 'lv_download_example', 'lv_download' } %}"
+      end
+    end
   end
 end
 
 Liquid::Template.register_tag('lv_download', Jekyll::LayerVault::Download)
+Liquid::Template.register_tag('lv_download_example', Jekyll::LayerVault::DownloadExample)

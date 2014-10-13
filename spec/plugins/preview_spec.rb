@@ -92,5 +92,20 @@ describe Jekyll::LayerVault::Preview do
         end
       end
     end
+
+    context "with example tag" do
+      let (:source) { "{% lv_preview_example #{q}#{file}#{q} %}" }
+      let (:target) { "{% lv_preview #{q}#{file}#{q} %}" }
+
+      it "parses successfully" do
+        expect {
+          template.render nil, options
+        }.to_not raise_error
+      end
+
+      it "produces valid content" do
+        expect(template.render(nil, options)).to eq target
+      end
+    end
   end
 end

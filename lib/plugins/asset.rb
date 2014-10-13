@@ -8,7 +8,7 @@ module Jekyll
 
       def initialize(tag_name, text, tokens)
         super
-        @text = text
+        @text = text.strip
       end
 
       def render(context)
@@ -32,7 +32,14 @@ module Jekyll
           map(&:first)
       end
     end
+
+    class ExampleAsset < Asset
+      def render(context)
+        "{% lv_asset #{@text.gsub 'lv_asset_example', 'lv_asset'} %}"
+      end
+    end
   end
 end
 
 Liquid::Template.register_tag('lv_asset', Jekyll::LayerVault::Asset)
+Liquid::Template.register_tag('lv_asset_example', Jekyll::LayerVault::ExampleAsset)

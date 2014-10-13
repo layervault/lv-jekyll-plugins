@@ -23,4 +23,19 @@ describe Jekyll::LayerVault::Project do
   it "produces a valid URL" do
     expect(template.render(nil, options)).to eq target
   end
+
+  context "with example tag" do
+    let (:source) { "{% lv_project_example %}" }
+    let (:target) { "{% lv_project %}" }
+
+    it "parses successfully" do
+      expect {
+        template.render nil, options
+      }.to_not raise_error
+    end
+
+    it "produces valid content" do
+      expect(template.render(nil, options)).to eq target
+    end
+  end
 end

@@ -59,5 +59,20 @@ describe Jekyll::LayerVault::Asset do
         expect(template.render(nil, options)).to eq target
       end
     end
+
+    context "with example tag" do
+      let (:source) { "{% lv_asset_example #{q}#{file}#{q} #{q}-#{q} #{q}#{asset}#{q} %}" }
+      let (:target) { "{% lv_asset #{q}#{file}#{q} #{q}-#{q} #{q}#{asset}#{q} %}" }
+
+      it "parses successfully" do
+        expect {
+          template.render nil, options
+        }.to_not raise_error
+      end
+
+      it "produces valid content" do
+        expect(template.render(nil, options)).to eq target
+      end
+    end
   end
 end

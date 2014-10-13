@@ -12,7 +12,7 @@ module Jekyll
 
       def initialize(tag_name, text, tokens)
         super
-        @text = text
+        @text = text.strip
       end
 
       def render(context)
@@ -39,7 +39,14 @@ module Jekyll
           tap { |m| m[1] = nil if m[1] == '-' }
       end
     end
+
+    class PreviewExample < Preview
+      def render(context)
+        "{% lv_preview #{@text.gsub 'lv_preview_example', 'lv_preview'} %}"
+      end
+    end
   end
 end
 
 Liquid::Template.register_tag('lv_preview', Jekyll::LayerVault::Preview)
+Liquid::Template.register_tag('lv_preview_example', Jekyll::LayerVault::PreviewExample)
