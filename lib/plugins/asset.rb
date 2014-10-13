@@ -35,7 +35,7 @@ module Jekyll
 
     class ExampleAsset < Asset
       def render(context)
-        "{% lv_asset #{@text.gsub 'lv_asset_example', 'lv_asset'} %}"
+        "{% lv_asset #{@text} %}"
       end
     end
   end

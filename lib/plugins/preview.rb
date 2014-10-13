@@ -42,7 +42,7 @@ module Jekyll
 
     class PreviewExample < Preview
       def render(context)
-        "{% lv_preview #{@text.gsub 'lv_preview_example', 'lv_preview'} %}"
+        "{% lv_preview #{@text} %}"
       end
     end
   end

@@ -37,7 +37,7 @@ module Jekyll
 
     class DownloadExample < Download
       def render(context)
-        "{% lv_download #{@text.gsub 'lv_download_example', 'lv_download' } %}"
+        "{% lv_download #{@text} %}"
       end
     end
   end
